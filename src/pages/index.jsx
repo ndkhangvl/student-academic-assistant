@@ -18,7 +18,8 @@ const Index = () => {
         if (input.trim() === "") return
         setMessages([
             ...messages,
-            { from: "user", text: input }
+            { from: "user", text: input },
+            { from: "bot", text: "Vui lòng chờ trong giây lát" }
         ])
         setInput("")
     }
