@@ -1,7 +1,12 @@
 import axios from 'axios';
 
-function ChatbotApi() {
-}
+const BASE_URL = 'http://127.0.0.1:8000';
+
+const ChatbotApi = {
+  async ask(message) {
+    const response = await axios.post(`${BASE_URL}/ask`, { question: message });
+    return response.data;
+  }
+};
 
 export default ChatbotApi;
-
