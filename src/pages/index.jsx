@@ -57,12 +57,17 @@ const Index = () => {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-muted">
-      <div className="w-full max-w-md bg-background rounded-xl shadow-lg flex flex-col h-[600px] justify-center border border-border">
+      <div className="w-3/4 max-w-4xl bg-background rounded-xl shadow-lg flex flex-col h-[600px] justify-center border border-border">
         {/* Header */}
         <div className="bg-primary text-primary-foreground px-4 py-3 rounded-t-xl text-lg font-semibold flex items-center gap-2">
           <div className="bg-primary text-primary-foreground px-4 py-3 text-lg font-semibold flex items-center gap-2">
-             <img src="/Logo_Dai_hoc_Can_Tho.png" alt="CTU Logo" className="w-7 h-7 rounded" />
-               CTU Virtual Assistant
+            <img
+              src="/Logo_Dai_hoc_Can_Tho.png"
+              alt="CTU Logo"
+              className="w-7 h-7 rounded"
+            />
+            CTU Virtual Assistant
+            <i>Trợ lý học vụ - Đại học Cần Thơ</i>
           </div>
         </div>
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2 bg-card">
@@ -71,16 +76,17 @@ const Index = () => {
               key={idx}
               className={`flex ${
                 msg.from === "user" ? "justify-end" : "justify-start"
-              }`}>
+              }`}
+            >
               {msg.from === "bot" && (
-              <img
-                src="/avt.jpg"
-                alt="Bot Avatar"
-                className="w-8 h-8 rounded-full border object-cover"
-              />
+                <img
+                  src="/avt.jpg"
+                  alt="Bot Avatar"
+                  className="w-8 h-8 rounded-full border object-cover"
+                />
               )}
               <div
-                className={`rounded-lg px-4 py-2 max-w-[70%] text-sm
+                className={`rounded-lg px-4 py-2 max-w-[70%] text-sm ml-2
                 ${
                   msg.from === "user"
                     ? "bg-primary text-primary-foreground"
