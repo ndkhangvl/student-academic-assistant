@@ -59,17 +59,10 @@ const Index = () => {
       <div className="w-full max-w-md bg-background rounded-xl shadow-lg flex flex-col h-[600px] justify-center border border-border">
         {/* Header */}
         <div className="bg-primary text-primary-foreground px-4 py-3 rounded-t-xl text-lg font-semibold flex items-center gap-2">
-          <svg width="28" height="28" fill="none" viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10" fill="#fff" fillOpacity=".1" />
-            <path
-              d="M11.293 17.293l-1.293 1.293a1 1 0 01-1.414 0l-2.293-2.293a1 1 0 010-1.414l1.293-1.293M11 14v4h4a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2h3m2-10h2M9 6h6"
-              stroke="#fff"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-          Chat Bot
+          <div className="bg-primary text-primary-foreground px-4 py-3 text-lg font-semibold flex items-center gap-2">
+             <img src="src/assets/Logo_Dai_hoc_Can_Tho.png" alt="CTU Logo" className="w-7 h-7 rounded" />
+               CTU Virtual Assistant
+          </div>
         </div>
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2 bg-card">
           {messages.map((msg, idx) => (
@@ -77,8 +70,14 @@ const Index = () => {
               key={idx}
               className={`flex ${
                 msg.from === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
+              }`}>
+              {msg.from === "bot" && (
+              <img
+                src="/avt.jpg"
+                alt="Bot Avatar"
+                className="w-8 h-8 rounded-full border object-cover"
+              />
+              )}
               <div
                 className={`rounded-lg px-4 py-2 max-w-[70%] text-sm
                 ${
