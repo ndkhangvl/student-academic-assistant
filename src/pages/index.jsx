@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ChatbotApi from "@/api/ChatbotApi";
+import ReactMarkdown from "react-markdown";
 
 const Index = () => {
   const [messages, setMessages] = useState([
@@ -41,7 +42,7 @@ const Index = () => {
           },
         ];
       });
-    } catch (err) {
+    } catch {
       setMessages((prev) => {
         const updated = prev.slice(0, -1);
         return [
@@ -87,7 +88,11 @@ const Index = () => {
                     : "bg-muted text-foreground"
                 }`}
               >
-                {msg.text}
+                {msg.from === "bot" ? (
+                  <ReactMarkdown>{msg.text}</ReactMarkdown>
+                ) : (
+                  msg.text
+                )}
               </div>
             </div>
           ))}
