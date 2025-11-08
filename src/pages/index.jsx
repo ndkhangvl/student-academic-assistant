@@ -61,7 +61,7 @@ const Index = () => {
         {/* Header */}
         <div className="bg-primary text-primary-foreground px-4 py-3 rounded-t-xl text-lg font-semibold flex items-center gap-2">
           <div className="bg-primary text-primary-foreground px-4 py-3 text-lg font-semibold flex items-center gap-2">
-             <img src="src/assets/Logo_Dai_hoc_Can_Tho.png" alt="CTU Logo" className="w-7 h-7 rounded" />
+             <img src="/Logo_Dai_hoc_Can_Tho.png" alt="CTU Logo" className="w-7 h-7 rounded" />
                CTU Virtual Assistant
           </div>
         </div>
