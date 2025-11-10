@@ -56,8 +56,14 @@ const Index = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-muted">
-      <div className="w-3/4 max-w-4xl bg-background rounded-xl shadow-lg flex flex-col h-[600px] justify-center border border-border">
+    <div className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat relative"
+      style={{
+        backgroundImage: "url('/RLC1.jpg')",
+      }}>
+      <div className="absolute inset-0 bg-black/40">
+        <a href="https://www.ctu.edu.vn/" target="blank_"><img src="/Logo_Dai_hoc_Can_Tho.png" className="p-2 w-20 h-20 rounded"></img></a>
+      </div>
+      <div className="relative w-3/4 max-w-4xl bg-background rounded-xl shadow-lg flex flex-col h-[600px] justify-center border border-border">
         {/* Header */}
         <div className="bg-primary text-primary-foreground px-4 py-3 rounded-t-xl text-lg font-semibold flex items-center gap-2">
           <div className="bg-primary text-primary-foreground px-4 py-3 text-lg font-semibold flex items-center gap-2">
