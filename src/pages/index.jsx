@@ -3,6 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import ChatbotApi from "@/api/ChatbotApi";
 import ReactMarkdown from "react-markdown";
+import removeAccents from "remove-accents";
 
 const Index = () => {
   const [messages, setMessages] = useState([
@@ -16,20 +17,124 @@ const Index = () => {
     messageEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+   // Hàm kiểm tra câu chào nâng cao
+  const isGreeting = (text) => {
+  if (!text) return false;
+
+  let normalized = text.toLowerCase().trim();
+  normalized = removeAccents(normalized);
+  normalized = normalized.replace(/[!?.]/g, "");
+
+  // Nếu câu quá dài hoặc chứa từ chuyên môn → không phải lời chào
+  const informativeWords = [
+    "cach", 
+    "lam", 
+    "viet", 
+    "trinh bay", 
+    "huong dan", 
+    "vi du", 
+    "la gi", 
+    "nghia la", 
+    "the nao", 
+    "khi", 
+    "bai",
+    ];
+    if (informativeWords.some((w) => normalized.includes(w))) return false;
+
+    // Các mẫu chào thực tế
+    const greetingPatterns = [
+      /\b(xin\s*)?chao\b/,
+      /\bchao\s*(ban|ai|anh|chi|em)?\b/,
+      /\bhello\b/,
+      /\bhi\b/,
+      /\bhey\b/,
+      /\balo\b/,
+      /\bco\s*ai\s*khong\b/,
+      /\bgood\s*(morning|afternoon|evening)\b/,
+    ];
+
+    // Nếu câu dài quá 6 từ → cũng không coi là chào
+    const wordCount = normalized.split(/\s+/).length;
+    if (wordCount > 6) return false;
+
+    return greetingPatterns.some((pattern) => pattern.test(normalized));
+  };
+
+    // 💬 Hàm kiểm tra câu cảm ơn
+  const isThankYou = (text) => {
+    if (!text) return false;
+    let normalized = removeAccents(text.toLowerCase().trim());
+    normalized = normalized.replace(/[!?.]/g, "");
+
+    const thankPatterns = [
+      /\bcam\s*on\b/,
+      /\bthank(s| you)?\b/,
+      /\bcam on nhieu\b/,
+      /\bcam on ban\b/,
+      /\bcam on nhe\b/,
+      /\bthanks a lot\b/,
+      /\bthank u\b/,
+    ];
+
+    // nếu có thêm nội dung chuyên môn -> không phải cảm ơn
+    const informativeWords = [
+      "cach", 
+      "lam", 
+      "huong dan", 
+      "vi du", 
+      "la gi", 
+      "bai", 
+      "trinh bay"
+    ];
+    if (informativeWords.some((w) => normalized.includes(w))) return false;
+
+    const wordCount = normalized.split(/\s+/).length;
+    if (wordCount > 8) return false;
+
+    return thankPatterns.some((pattern) => pattern.test(normalized));
+  };
+
   const handleSend = async (e) => {
     e.preventDefault();
     if (input.trim() === "" || isLoading) return;
 
     const userMessage = { from: "user", text: input };
-    setMessages((prev) => [
-      ...prev,
-      userMessage,
-      { from: "bot", text: "Vui lòng chờ trong giây lát" },
-    ]);
+    setMessages((prev) => [...prev, userMessage]);
+    const userInput = input.trim();
     setInput("");
     setIsLoading(true);
 
+    if (isGreeting(userInput)){
+      setMessages((prev) => [
+        ...prev,
+        {
+          from: "bot",
+          text:
+            "Xin chào! 😊 Tôi là trợ lý học vụ ảo của Đại học Cần Thơ. Rất vui được hỗ trợ bạn hôm nay!",
+        },
+      ]);
+      setIsLoading(false);
+      return;
+    }
+
+    if (isThankYou(userInput)) {
+      setMessages((prev) => [
+        ...prev,
+        {
+          from: "bot",
+          text: "Rất vui vì đã giúp được bạn! 😊 Chúc bạn học tập thật tốt nhé!",
+        },
+      ]);
+      setIsLoading(false);
+      return;
+    }
+
     try {
+      setMessages((prev) => [
+        ...prev,
+        { from: "bot", text: "Vui lòng chờ trong giây lát..." },
+      ]);
+
       const response = await ChatbotApi.ask(input);
       setMessages((prev) => {
         // Remove the last "Vui lòng chờ..." message then add the real response.
