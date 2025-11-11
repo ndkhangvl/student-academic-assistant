@@ -54,65 +54,72 @@ const Index = () => {
       setIsLoading(false);
     }
   };
+return (
+  <>
+    <header className="w-full bg-white/70 backdrop-blur border-b border-border fixed top-0 left-0 z-40">
+      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
+        <a
+          href="https://www.ctu.edu.vn/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 font-semibold text-lg"
+        >
+          <img src="/Logo_Dai_hoc_Can_Tho.png" className="w-10 h-10 rounded" />
+          Đại học Cần Thơ
+        </a>
 
-  return (
-    <div className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat relative"
+        {/* Navigation */}
+        <nav className="flex items-center gap-6 text-sm font-medium">
+          <a href="https://www.ctu.edu.vn/" target="_blank" className="hover:text-blue-600">Trang chủ</a>
+          <a href="https://www.ctu.edu.vn/gioithieu.html" target="_blank" className="hover:text-blue-600">Giới thiệu</a>
+          <a href="https://tuyensinh.ctu.edu.vn/" target="_blank" className="hover:text-blue-600">Tuyển sinh</a>
+          <a href="https://www.ctu.edu.vn/tin-tuc-su-kien.html" target="_blank" className="hover:text-blue-600">Tin tức</a>
+        </nav>
+      </div>
+    </header>
+
+    <div
+      className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat relative pt-20"
       style={{
         backgroundImage: "url('/RLC1.jpg')",
-      }}>
-      <div className="absolute inset-0 bg-black/40">
-        <a href="https://www.ctu.edu.vn/" target="blank_"><img src="/Logo_Dai_hoc_Can_Tho.png" className="p-2 w-20 h-20 rounded"></img></a>
-      </div>
-      <div className="relative w-3/4 max-w-4xl bg-background rounded-xl shadow-lg flex flex-col h-[600px] justify-center border border-border">
-        {/* Header */}
-        <div className="bg-primary text-primary-foreground px-4 py-3 rounded-t-xl text-lg font-semibold flex items-center gap-2">
-          <div className="bg-primary text-primary-foreground px-4 py-3 text-lg font-semibold flex items-center gap-2">
-            <img
-              src="/Logo_Dai_hoc_Can_Tho.png"
-              alt="CTU Logo"
-              className="w-7 h-7 rounded"
-            />
-            CTU Virtual Assistant
-            <i>Trợ lý học vụ - Đại học Cần Thơ</i>
-          </div>
+      }}
+    >
+      <div className="absolute inset-0 bg-black/40" />
+
+      <div
+        className="relative w-3/4 max-w-4xl bg-background rounded-xl shadow-lg flex flex-col h-[600px] justify-center border"
+        style={{ borderColor: "#1f5ca9" }}
+      >
+        <div
+          className="text-white px-4 py-3 rounded-t-xl text-lg font-semibold flex items-center gap-2"
+          style={{ backgroundColor: "#1f5ca9" }}
+        >
+          <img src="/Logo_Dai_hoc_Can_Tho.png" alt="CTU Logo" className="w-7 h-7 rounded" />
+          <i>Trợ lý học vụ - Đại học Cần Thơ</i>
         </div>
+
         <div className="flex-1 overflow-y-auto px-4 py-4 space-y-2 bg-card">
           {messages.map((msg, idx) => (
-            <div
-              key={idx}
-              className={`flex ${
-                msg.from === "user" ? "justify-end" : "justify-start"
-              }`}
-            >
+            <div key={idx} className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}>
               {msg.from === "bot" && (
-                <img
-                  src="/avt.jpg"
-                  alt="Bot Avatar"
-                  className="w-8 h-8 rounded-full border object-cover"
-                />
+                <img src="/avt.jpg" alt="Bot Avatar" className="w-8 h-8 rounded-full border object-cover" />
               )}
+
               <div
-                className={`rounded-lg px-4 py-2 max-w-[70%] text-sm ml-2
-                ${
-                  msg.from === "user"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-foreground"
-                }`}
+                className={`rounded-lg px-4 py-2 max-w-[70%] text-sm ml-2`}
+                style={{
+                  backgroundColor: msg.from === "bot" ? "#1f5ca9" : "#00afef",
+                  color: "white",
+                }}
               >
-                {msg.from === "bot" ? (
-                  <ReactMarkdown>{msg.text}</ReactMarkdown>
-                ) : (
-                  msg.text
-                )}
+                {msg.from === "bot" ? <ReactMarkdown>{msg.text}</ReactMarkdown> : msg.text}
               </div>
             </div>
           ))}
           <div ref={messageEndRef} />
         </div>
-        <form
-          className="flex gap-2 px-4 py-3 bg-background border-t rounded-b-xl"
-          onSubmit={handleSend}
-        >
+
+        <form className="flex gap-2 px-4 py-3 bg-background border-t rounded-b-xl" onSubmit={handleSend}>
           <Input
             type="text"
             className="flex-1"
@@ -121,13 +128,23 @@ const Index = () => {
             onChange={(e) => setInput(e.target.value)}
             disabled={isLoading}
           />
-          <Button type="submit" disabled={isLoading}>
+          <Button
+            type="submit"
+            disabled={isLoading}
+            style={{
+              backgroundColor: "#1f5ca9",
+              color: "white",
+            }}
+          >
             Gửi
           </Button>
         </form>
       </div>
     </div>
-  );
+  </>
+);
+
+
 };
 
 export default Index;
